@@ -39,7 +39,7 @@ void riseEncA1() {
 void loop() {
   if (Serial.available() > 0) {
     switch (Serial.read()) {
-      case 'q':
+      case 'a':
         pwm_com_1 += 1;
         break;
       case 's':
