@@ -40,13 +40,13 @@ void loop() {
   if (Serial.available() > 0) {
     switch (Serial.read()) {
       case 'a':
-        pwm_com_1 += 1;
+        pwm_com_1 = limitCOM(pwm_com_1 + 10);
         break;
       case 's':
         pwm_com_1 = 0;
         break;
       case 'd':
-        pwm_com_1 -= 1;
+        pwm_com_1 = limitCOM(pwm_com_1 - 10);
         break;
       case 'w':
         pwm_com_1 = 255;
@@ -72,4 +72,10 @@ void loop() {
     // print pwm_com_1
     Serial.println(pwm_com_1);
   }
+}
+
+int limitCOM(int _com) {
+  if (_com >  255) return 255;
+  if (_com < -255) return -255;
+  return _com;
 }
