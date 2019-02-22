@@ -11,7 +11,14 @@ const int PIN_ENCODER_B_1 = 5;  // encoder B
 int pwm_com_1 = 0;
 
 // encorder pulse count
-volatile int enc_count_1 = 0;
+volatile int enc_counting_1 = 0;  // inc/dec by interrupt handler
+volatile int enc_count_1 = 0;     // for control law
+
+// control period (us)
+const int T_S = 10000;
+
+// for keep control period
+long int start_time, end_time;
 
 void setup() {
   // change PWM freq
@@ -37,6 +44,23 @@ void riseEncA1() {
 }
 
 void loop() {
+  start_time = micros();  // start control period
+
+  // update enc_count_1
+  enc_count_1 = enc_counting_1;
+  enc_counting_1 = 0;
+
+  // set direction
+  if (pwm_com_1 >= 0) {
+    digitalWrite(PIN_MOTOR_DIR_1, 0);  // CW
+  }
+  else {
+    digitalWrite(PIN_MOTOR_DIR_1, 1);  // CCW
+  }
+
+  // output pwm
+  analogWrite(PIN_MOTOR_PWM_1, abs(pwm_com_1));
+
   if (Serial.available() > 0) {
     switch (Serial.read()) {
       case 'a':
@@ -58,20 +82,13 @@ void loop() {
         ;
     }
 
-    // set direction
-    if (pwm_com_1 >= 0) {
-      digitalWrite(PIN_MOTOR_DIR_1, 0);  // CW
-    }
-    else {
-      digitalWrite(PIN_MOTOR_DIR_1, 1);  // CCW
-    }
-
-    // output pwm
-    analogWrite(PIN_MOTOR_PWM_1, abs(pwm_com_1));
-
     // print pwm_com_1
-    Serial.println(pwm_com_1);
+    Serial.println(pwm_com_1, enc_count_1);
   }
+
+  // for keep control period
+  end_time = micros();
+  delayMicroseconds(max(0, start_time + T_S - end_time));
 }
 
 int limitCOM(int _com) {
