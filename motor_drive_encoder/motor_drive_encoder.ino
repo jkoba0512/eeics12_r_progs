@@ -39,8 +39,8 @@ void setup() {
 }
 
 void riseEncA1() {
-  if (digitalRead(PIN_ENCODER_B_1) == LOW) enc_count_1++;  // CW
-  else enc_count_1--;  // CCW
+  if (digitalRead(PIN_ENCODER_B_1) == LOW) enc_counting_1++;  // CW
+  else enc_counting_1--;  // CCW
 }
 
 void loop() {
