@@ -81,10 +81,12 @@ void loop() {
       default:
         ;
     }
-
-    // print pwm_com_1
-    Serial.println(pwm_com_1, enc_count_1);
   }
+
+  // print pwm_com_1, enc_count_1
+  Serial.print(pwm_com_1);
+  Serial.print(" ");
+  Serial.println(enc_count_1);
 
   // for keep control period
   end_time = micros();
