@@ -18,11 +18,17 @@ void loop() {
       case 'a':
         pwm_com_1 = limitCOM(pwm_com_1 + 10);
         break;
+      case 'z':
+        pwm_com_1 = limitCOM(pwm_com_1 + 1);
+        break;
       case 's':
         pwm_com_1 = 0;
         break;
       case 'd':
         pwm_com_1 = limitCOM(pwm_com_1 - 10);
+        break;
+      case 'c':
+        pwm_com_1 = limitCOM(pwm_com_1 - 1);
         break;
       default:
         ;
