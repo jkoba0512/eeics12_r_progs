@@ -39,8 +39,8 @@ void setup() {
 }
 
 void riseEncA1() {
-  if (digitalRead(PIN_ENCODER_B_1) == LOW) enc_counting_1++;  // CW
-  else enc_counting_1--;  // CCW
+  // write a code here
+  // 
 }
 
 void loop() {
@@ -52,14 +52,14 @@ void loop() {
 
   // set direction
   if (pwm_com_1 >= 0) {
-    digitalWrite(PIN_MOTOR_DIR_1, 0);  // CW
+    // write a code here  // CW
   }
   else {
-    digitalWrite(PIN_MOTOR_DIR_1, 1);  // CCW
+    // write a code here  // CCW
   }
 
   // output pwm
-  analogWrite(PIN_MOTOR_PWM_1, abs(pwm_com_1));
+  // write a code here
 
   // process key inputs
   if (Serial.available() > 0) processSerialKeyInput();
