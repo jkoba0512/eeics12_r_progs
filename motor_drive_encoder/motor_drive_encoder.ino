@@ -62,25 +62,7 @@ void loop() {
   analogWrite(PIN_MOTOR_PWM_1, abs(pwm_com_1));
 
   if (Serial.available() > 0) {
-    switch (Serial.read()) {
-      case 'a':
-        pwm_com_1 = limitCOM(pwm_com_1 + 10);
-        break;
-      case 's':
-        pwm_com_1 = 0;
-        break;
-      case 'd':
-        pwm_com_1 = limitCOM(pwm_com_1 - 10);
-        break;
-      case 'w':
-        pwm_com_1 = 255;
-        break;
-      case 'x':
-        pwm_com_1 = - 255;
-        break;
-      default:
-        ;
-    }
+    processSerialKeyInput();
   }
 
   // print pwm_com_1, enc_count_1
@@ -97,4 +79,26 @@ int limitCOM(int _com) {
   if (_com >  255) return 255;
   if (_com < -255) return -255;
   return _com;
+}
+
+void processSerialKeyInput() {
+  switch (Serial.read()) {
+    case 'a':
+      pwm_com_1 = limitCOM(pwm_com_1 + 10);
+      break;
+    case 's':
+      pwm_com_1 = 0;
+      break;
+    case 'd':
+      pwm_com_1 = limitCOM(pwm_com_1 - 10);
+      break;
+    case 'w':
+      pwm_com_1 = 255;
+      break;
+    case 'x':
+      pwm_com_1 = - 255;
+      break;
+    default:
+      ;
+  }
 }
