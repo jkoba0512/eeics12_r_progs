@@ -14,7 +14,7 @@ int pwm_com_1 = 0;
 volatile int enc_counting_1 = 0;  // inc/dec by interrupt handler
 volatile int enc_count_1 = 0;     // for control law
 
-// accumulate encoder pulse count for 100 ms
+// accumulate encoder pulse count for 1 s
 float acc_enc_count_1 = 0.0;
 int counter_enc_count_1 = 0;
 
@@ -72,12 +72,12 @@ void loop() {
   acc_enc_count_1 += enc_count_1;
   counter_enc_count_1++;
 
-  // each 100 ms
-  if (counter_enc_count_1 == 10) {
+  // each 1 s
+  if (counter_enc_count_1 == 100) {
     // print pwm_com_1, enc_count_1
     Serial.print(pwm_com_1);
     Serial.print(" ");
-    Serial.println(acc_enc_count_1 / 10);  // averaging enc_count_1 for 100 ms
+    Serial.println(acc_enc_count_1 / 100);  // averaging enc_count_1 for 100 ms
     counter_enc_count_1 = 0;
     acc_enc_count_1 = 0.0;
   }
