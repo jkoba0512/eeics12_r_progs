@@ -79,6 +79,7 @@ void loop() {
     Serial.print(" ");
     Serial.println(acc_enc_count_1 / 10);  // averaging enc_count_1 for 100 ms
     counter_enc_count_1 = 0;
+    acc_enc_count_1 = 0.0;
   }
 
   // for keep control period
