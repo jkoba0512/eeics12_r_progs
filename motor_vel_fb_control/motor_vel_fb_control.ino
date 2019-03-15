@@ -31,8 +31,8 @@ void setup() {
 }
 
 void riseEncA1() {
-  if (digitalRead(PIN_ENCODER_B_1) == LOW) enc_counting_1++;  // CW
-  else enc_counting_1--;  // CCW
+  // write a code here
+  // 
 }
 
 void loop() {
@@ -57,14 +57,14 @@ void loop() {
 
   // set direction
   if (pwm_com_1 >= 0) {
-    digitalWrite(PIN_MOTOR_DIR_1, 0);  // CW
+    // write a code here  // CW
   }
   else {
-    digitalWrite(PIN_MOTOR_DIR_1, 1);  // CCW
+    // write a code here  // CCW
   }
 
   // output pwm
-  analogWrite(PIN_MOTOR_PWM_1, abs(pwm_com_1));
+  // write a code here
 
   // process key inputs
   if (Serial.available() > 0) {
@@ -114,11 +114,11 @@ int calPIControl(float _desired_dphi_deg_s_1, int _enc_count_1) {
   int desired_enc_count_1 = (int)(_desired_dphi_deg_s_1 * DEG_S_2_COUNT);
 
   // error (desired - actual)
-  err_enc_count_1 = desired_enc_count_1 - _enc_count_1;
+  // write a code here
   
   // accumulated error
-  acc_err_enc_count_1 += err_enc_count_1;
-
+  // write a code here
+  
   // print
   Serial.print(_desired_dphi_deg_s_1);
   Serial.print(" ");
@@ -127,5 +127,5 @@ int calPIControl(float _desired_dphi_deg_s_1, int _enc_count_1) {
   Serial.println(_enc_count_1);
   
   // PI control
-  return (int)(Kp * err_enc_count_1 + Ki * acc_err_enc_count_1);
+  return (int)(0.0);  // modify this code here
 }
