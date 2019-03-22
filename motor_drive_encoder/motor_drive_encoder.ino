@@ -66,7 +66,9 @@ void loop() {
   // write a code here
 
   // process key inputs
-  if (Serial.available() > 0) processSerialKeyInput(pwm_com_1);
+  if (Serial.available() > 0) {
+    pwm_com_1 = processSerialKeyInput(pwm_com_1);
+  }
 
   // print pwm_com_1, enc_count_1
   Serial.print(pwm_com_1);
