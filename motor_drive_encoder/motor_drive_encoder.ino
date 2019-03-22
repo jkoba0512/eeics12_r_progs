@@ -12,9 +12,6 @@ volatile int enc_counting_1 = 0;  // encoder pulse count
 
 const int T_S = 10000;  // control period (us)
 
-// for keep control period
-long int start_time, end_time;
-
 void setup() {
   // change PWM freq
   TCCR1B=TCCR1B&0xf8|0x01;  // pin9,pin10 PWM 31250Hz
