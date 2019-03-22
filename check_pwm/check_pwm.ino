@@ -1,9 +1,6 @@
 // pin number
 const int PIN_MOTOR_PWM_1 = 3;  // pwm output pin number
 
-// pwm_com (0 ~ 255)
-int pwm_com_1 = 0;
-
 void setup() {
   // set pin mode
   pinMode(PIN_MOTOR_PWM_1, OUTPUT);
@@ -13,6 +10,9 @@ void setup() {
 }
 
 void loop() {
+  // pwm_com (0 ~ 255)
+  static int pwm_com_1 = 0;
+  
   if (Serial.available() > 0) {
     switch (Serial.read()) {
       case 'a':

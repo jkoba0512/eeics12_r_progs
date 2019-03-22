@@ -7,15 +7,10 @@ const int PIN_MOTOR_PWM_1 = 3;  // pwm
 const int PIN_ENCODER_A_1 = 4;  // encoder A
 const int PIN_ENCODER_B_1 = 5;  // encoder B
 
-// pwm_com (-255 ~ 255)
-int pwm_com_1 = 0;
+volatile int enc_counting_1 = 0;  // encoder pulse count
+                                  // inc/dec by interrupt handler
 
-// encorder pulse count
-volatile int enc_counting_1 = 0;  // inc/dec by interrupt handler
-volatile int enc_count_1 = 0;     // for control law
-
-// control period (us)
-const int T_S = 10000;
+const int T_S = 10000;  // control period (us)
 
 // for keep control period
 long int start_time, end_time;
@@ -44,6 +39,15 @@ void riseEncA1() {
 }
 
 void loop() {
+  // for keep control period
+  long int start_time, end_time;
+  
+  // encorder pulse count for control law
+  int enc_count_1 = 0;
+
+  // pwm duty ratio including direction (-255 ~ 255)
+  static int pwm_com_1 = 0;
+    
   start_time = micros();  // start control period
 
   // update enc_count_1
@@ -62,7 +66,7 @@ void loop() {
   // write a code here
 
   // process key inputs
-  if (Serial.available() > 0) processSerialKeyInput();
+  if (Serial.available() > 0) processSerialKeyInput(pwm_com_1);
 
   // print pwm_com_1, enc_count_1
   Serial.print(pwm_com_1);
@@ -80,24 +84,19 @@ int limitCOM(int _com) {
   return _com;
 }
 
-void processSerialKeyInput() {
+int processSerialKeyInput(int _pwm_com_1) {
   switch (Serial.read()) {
     case 'a':
-      pwm_com_1 = limitCOM(pwm_com_1 + 10);
-      break;
+      return limitCOM(_pwm_com_1 + 10);
     case 's':
-      pwm_com_1 = 0;
-      break;
+      return 0;
     case 'd':
-      pwm_com_1 = limitCOM(pwm_com_1 - 10);
-      break;
+      return limitCOM(_pwm_com_1 - 10);
     case 'w':
-      pwm_com_1 = 255;
-      break;
+      return 255;
     case 'x':
-      pwm_com_1 = - 255;
-      break;
+      return - 255;
     default:
-      ;
+      return _pwm_com_1;
   }
 }
