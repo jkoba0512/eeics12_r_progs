@@ -73,7 +73,7 @@ void loop() {
   // write a code here
   // write a code here
   if (counter_enc_count_1 == 100) {
-    // print pwm_com_1, enc_count_1
+    // print pwm_com_1, acc_enc_count_1 / 100
     Serial.print(pwm_com_1);
     Serial.print(" ");
     Serial.println(acc_enc_count_1 / 100);  // averaging enc_count_1 for 1 s
