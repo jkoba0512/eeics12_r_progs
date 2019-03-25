@@ -47,9 +47,8 @@ void loop() {
   
   // desired motor rotational velocity (deg/s)
   static float desired_dphi_deg_s_1 = 0.0;
-
-  // start control period
-  start_time = micros();
+  
+  start_time = micros();  // start control period
 
   // update enc_count_1
   enc_count_1 = enc_counting_1;
