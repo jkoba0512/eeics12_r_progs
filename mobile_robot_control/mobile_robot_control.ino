@@ -136,11 +136,11 @@ void processSerialKeyInputForMobileRobotControl(float& desired_vel_m_s, float& d
     case 'x':
       desired_vel_m_s -= 0.1;
       break;
-    case 'd':
-      desired_omega_rad_s -= 60.0 * (PI / 180.0);
-      break;
     case 'a':
       desired_omega_rad_s += 60.0 * (PI / 180.0);
+      break;
+    case 'd':
+      desired_omega_rad_s -= 60.0 * (PI / 180.0);
       break;
     case 's':
       desired_vel_m_s = 0.0;
