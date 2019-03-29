@@ -13,10 +13,14 @@ float[] desired_dphi_deg_s_1 = new float[BUF_SIZE];
 int[] desired_enc_count_1 = new int[BUF_SIZE];
 int[] enc_count_1 = new int[BUF_SIZE];
 
+float print_desired_dphi_deg_s_1;
+int print_desired_enc_count_1;
+int print_enc_count_1;
+
 void setup() {
   size(500, 500);
   println(Serial.list());
-  port = new Serial(this, "/dev/cu.usbserial-AL00YXK4", 9600);
+  port = new Serial(this, "/dev/cu.usbserial-A403616Z", 9600);
   
   for (int i = 0; i < BUF_SIZE; i++) {
     desired_dphi_deg_s_1[i] = 0.0;
@@ -31,7 +35,7 @@ void draw() {
   background(255);
   drawAxis();
   drawLegend();
-  
+
   for (int i = 0; i < BUF_SIZE-1; i++) {
     stroke(0, 0, 255);
     line(i, height/2 - map(desired_enc_count_1[i], 0, 30, 0, height/2), i+1, height/2 - map(desired_enc_count_1[i+1], 0, 30, 0, height/2));
@@ -46,18 +50,23 @@ void drawAxis() {
 }
 
 void drawLegend() {
-  int start_x = width/2;
-  int end_x = width/2 + 50;
+  int start_x = 50;
+  int end_x = start_x + 50;
   stroke(0, 0, 255);
-  line(start_x, 20, end_x, 20);
-  stroke(255, 0, 0);
   line(start_x, 40, end_x, 40);
+  stroke(255, 0, 0);
+  line(start_x, 60, end_x, 60);
   
   textSize(14);
   textAlign(LEFT);
   fill(#000000);
-  text("desired_enc_count_1", end_x+10, 23);
-  text("enc_count_1", end_x+10, 43);
+  text("desired_dphi_deg_s_1: ", end_x+10, 23);
+  text("desired_enc_count_1: ", end_x+10, 43);
+  text("enc_count_1: ", end_x+10, 63);
+
+  text(print_desired_dphi_deg_s_1, end_x+170, 23);
+  text(print_desired_enc_count_1, end_x+170, 43);
+  text(print_enc_count_1, end_x+170, 63);
 }
 
 void serialEvent(Serial p) {
@@ -69,9 +78,12 @@ void serialEvent(Serial p) {
     desired_dphi_deg_s_1[buf_index] = float(outputs[0]);
     desired_enc_count_1[buf_index] = int(outputs[1]);
     enc_count_1[buf_index] = int(outputs[2]);
-    print(desired_dphi_deg_s_1[buf_index], " ");
-    print(desired_enc_count_1[buf_index], " ");
-    println(enc_count_1[buf_index]);
+    print_desired_dphi_deg_s_1 = desired_dphi_deg_s_1[buf_index];
+    print_desired_enc_count_1 = desired_enc_count_1[buf_index];
+    print_enc_count_1 = enc_count_1[buf_index];
+    //print(desired_dphi_deg_s_1[buf_index], " ");
+    //print(desired_enc_count_1[buf_index], " ");
+    //println(enc_count_1[buf_index]);
     buf_index = (buf_index + 1) % BUF_SIZE;
   }
 }
