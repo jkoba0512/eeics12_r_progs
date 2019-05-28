@@ -98,6 +98,10 @@ float processSerialKeyInputForMotorControl(float _desired_dphi_deg_s_1) {
 }
 
 int calPIControl(float _desired_dphi_deg_s_1, int _enc_count_1) {
+  // arguments
+  // _desired_dphi_deg_s_1 : desired motor rotational velocity (deg/s)
+  // _enc_count_1 : encorder pulse count for control law
+  
   // PI gains
   const float Kp = 1.0;
   const float Ki = 0.0;

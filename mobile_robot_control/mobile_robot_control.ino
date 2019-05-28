@@ -152,9 +152,13 @@ void processSerialKeyInputForMobileRobotControl(float& desired_vel_m_s, float& d
 }
 
 int calPIControl1(float _desired_dphi_deg_s_1, int _enc_count_1) {
+  // arguments
+  // _desired_dphi_deg_s_1 : desired motor rotational velocity (deg/s)
+  // _enc_count_1 : encorder pulse count for control law
+    
   // PI gains
-  const float Kp = 1;
-  const float Ki = 0;
+  const float Kp = 1.0;
+  const float Ki = 0.0;
 
   // errors
   int err_enc_count_1 = 0;  // error (desired - actual)
@@ -177,9 +181,13 @@ int calPIControl1(float _desired_dphi_deg_s_1, int _enc_count_1) {
 }
 
 int calPIControl2(float _desired_dphi_deg_s_2, int _enc_count_2) {
+  // arguments
+  // _desired_dphi_deg_s_2 : desired motor rotational velocity (deg/s)
+  // _enc_count_2 : encorder pulse count for control law
+  
   // PI gains
-  const float Kp = 5;
-  const float Ki = 1;
+  const float Kp = 1.0;
+  const float Ki = 0.0;
 
   // errors
   int err_enc_count_2 = 0;  // error (desired - actual)
